@@ -1,0 +1,24 @@
+zuul:
+  routes:
+    serviceSimple:
+      path: /simple
+      url: forward:/
+    serviceAdvanced:
+      path: /advanced
+      url: forward:/
+  ratelimit:
+    enabled: true
+    repository: JPA #Using H2 for JPA repository / for others repositories, use their dependencies (ex. Bucket4j + Hazelcast/EhCache/etc or Redis)
+    policy-list:
+      serviceSimple:
+      - limit: 5
+        refresh-interval: 60
+        type:
+        - origin
+      serviceAdvanced:
+      - limit: 1
+        refresh-interval: 2
+        type:
+        - origin
+    response-headers: verbose
+  strip-prefix: true

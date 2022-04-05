@@ -1,0 +1,17 @@
+zuul.strip-prefix=true
+
+zuul.routes.serviceSimple[0].path=/greeting/simple
+zuul.routes.serviceSimple[0].url=forward:/
+zuul.routes.serviceAdvanced[0].path=/greeting/advanced
+zuul.routes.serviceAdvanced[0].url=forward:/
+
+zuul.ratelimit.enabled=true
+zuul.ratelimit.repository=JPA
+
+zuul.ratelimit.policy-list.serviceSimple[0].type[0]=origin
+zuul.ratelimit.policy-list.serviceSimple[0].limit=5
+zuul.ratelimit.policy-list.serviceSimple[0].refresh-interval=60
+
+zuul.ratelimit.policy-list.serviceAdvanced[0].type[0]=origin
+zuul.ratelimit.policy-list.serviceAdvanced[0].limit=1
+zuul.ratelimit.policy-list.serviceAdvanced[0].refresh-interval=2
